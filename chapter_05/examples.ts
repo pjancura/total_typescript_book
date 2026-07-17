@@ -47,3 +47,17 @@ const getAlbumFormats  = (format: AlbumFormat) => {
 };
 
 getAlbumFormats("MP3");
+
+function logId(id: number) {
+  console.log(`The id is ${id}`);
+}
+
+type User = {
+  id: string | number;
+};
+
+const user: User = {
+  id: 123,
+};
+
+logId(user.id); // red squiggly line under user.id
