@@ -1,7 +1,7 @@
-// type User = {
-//     name: string;
-//     age: number;
-// };
+export type User = {
+    name: string;
+    age: number;
+};
 
 // const userMap = new Map<number, User>();
 

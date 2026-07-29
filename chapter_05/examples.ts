@@ -61,3 +61,32 @@ const user: User = {
 };
 
 logId(user.id); // red squiggly line under user.id
+
+// discriminated union
+type State =
+  | {
+      status: "loading";
+    }
+  | {
+      status: "error";
+      error: string;
+    }
+  | {
+      status: "success";
+      data: string;
+    };
+
+const renderUI = (state: State) => {
+  if (state.status === "loading") {
+    return "Loading. . .";
+  }
+
+  if (state.status === "error") {
+    return `Error: ${state.error.toUpperCase()}`;
+  }
+
+  if (state.status === "success") {
+    return `Data: ${state.data}`;
+  }
+};  
+
