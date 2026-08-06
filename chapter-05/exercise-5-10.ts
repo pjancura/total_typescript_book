@@ -1,5 +1,5 @@
 import type { Equal, Expect } from "@total-typescript/helpers";
-import { type User } from "../chapter_04/exercise_4-12";
+import { type User } from "../chapter-04/exercise_4-12";
 
 type APIResponse =
     | [
