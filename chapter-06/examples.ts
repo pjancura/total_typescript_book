@@ -96,3 +96,80 @@ interface BaseAwards2 {
 interface ExtendedAlbumAwards2 extends BaseAwards2 {
   [award: string]: boolean;
 }
+
+interface Album2 {
+  title: string;
+  artist: string;
+  releaseYear: number;
+  genre: string;
+}
+
+type PartialAlbum = Partial<Album2>;
+
+const updateAlbum = (album: PartialAlbum) => {
+  // . . .
+};
+
+updateAlbum({title: "Geogaddi", artist: "Boards of Canada"});
+
+type RequiredAlbum = Required<Album2>;
+
+const doubleCup: RequiredAlbum = {
+  title: "Double Cup",
+  artist: "DJ Rashad",
+  releaseYear: 2013,
+  genre: "Juke",
+};
+
+type Album3 = {
+    title: string;
+    artist: string;
+    releaseYear?: number;
+    genre?: {
+        parentGenre?: string;
+        subGenre?: string;
+    }
+}
+
+// required doesn't work for nested properties
+type RequiredAlbum2 = Required<Album3>
+
+type AlbumData = Pick<Album3, "title" | "artist">;
+
+// common case to omit "id" prior to it being assigned
+// small catch, you can omit properties that don't exist on the object type
+type AlbumData2 = Omit<Album, "id" | "releaseYear" | "genre">;
+
+type AlbumWithOnlyProducer = Pick<Album, "producer">; // red squiggly line under "producer"
+
+// hovering over "producer" shows:
+// Type '"producer"' does not satisfy the constraint 'keyof Album'.
+
+type Album5 = { 
+    id: string;
+    title: string;
+    genre: string;
+}
+
+type CollectorEdition = {
+    id: string;
+    title: string;
+    limitedEditionFeatures: string[];
+}
+
+type DigitalRelease = {
+    id: string;
+    title: string; 
+    digitalFormat: string;
+}
+
+type MusicProduct = Album | CollectorEdition | DigitalRelease;
+
+// this produces the wrong type
+type MusicProductWithoutId = Omit<MusicProduct, "id">
+
+type DistributiveOmit<T, K extends PropertyKey> = T extends any
+    ? Omit<T, K>
+    : never;
+
+type MusicProductWithoutId2 = DistributiveOmit<MusicProduct, "id">;
